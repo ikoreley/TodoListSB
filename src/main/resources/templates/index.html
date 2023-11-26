@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все задачи</title>
+</head>
+<body>
+
+<style>
+    form {
+        display: inline-block;
+    }
+</style>
+
+<h3>ВСЕ ЗАДАЧИ</h3>
+
+<div th:each="task : ${todolist}">
+<!--    <a th:href="@{/todolist/{id}(id=${task.getId()})}"-->
+<!--       th:text="${task.getDescription() +' | '+ task.getStatus()} + ' | '">task</a>-->
+<!--    <form th:method="PATCH" th:action="@{/todolist/edit}">-->
+    <form th:method="PATCH" th:action="@{/todolist/edit}">
+        <input type="hidden" name="id" th:value="${task.id}">
+<!--        <input type="hidden" name="description" th:value="${task.description}">-->
+        <input type="text" name="description" th:value="${task.description}">
+<!--        <input type="hidden" name="deadline" th:value="${task.deadline}">-->
+        <input type="text" name="deadline" th:value="${task.deadline}">
+<!--        <input type="hidden" name="status" th:value="${task.status}">-->
+        <input type="text" name="status" th:value="${task.status}">
+        <input type="submit" value="edit"/>
+    </form>
+<!--    <a th:href="@{/todolist/{id}/edit(id=${task.getId()})}"><input type="submit" value="Edit"/></a>-->
+
+    <form th:method="DELETE" th:action="@{/todolist/{id}/(id=${task.getId()})}"><input type="submit" value="Delete"/></form>
+
+</div>
+
+<br/>
+<hr/>
+
+<a th:href="@{/todolist/new}">Создать новую задачу</a>
+
+</body>
+
+</html>

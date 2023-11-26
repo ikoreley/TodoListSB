@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все задачи</title>
+</head>
+<body>
+
+<h3>ВСЕ ЗАДАЧИ</h3>
+<div th:each="task : ${todolist}">
+    <a th:href="@{/todolist/{id}(id=${task.getId()})}"
+       th:text="${task.getDescription() + ' | ' + task.getStatus()}">task</a>
+</div>
+
+<br/>
+<hr/>
+
+<a th:href="@{/todolist/new}">Создать новую задачу</a>
+<!--<a th:href="@{/todolist/new}">Create new task</a>-->
+
+</body>
+</html>
