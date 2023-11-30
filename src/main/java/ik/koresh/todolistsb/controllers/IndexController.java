@@ -1,5 +1,7 @@
 package ik.koresh.todolistsb.controllers;
 
+import ik.koresh.todolistsb.models.Status;
+import ik.koresh.todolistsb.models.Task;
 import ik.koresh.todolistsb.services.TasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class IndexController {
     @GetMapping
     public String indexPage(Model model) {
         model.addAttribute("todolist", tasksService.findAll());
+        model.addAttribute("status", Status.values());
+
+        model.addAttribute("tasks", new Task()); // @ModelAttribute("task") Task task
         return "index";
     }
 }

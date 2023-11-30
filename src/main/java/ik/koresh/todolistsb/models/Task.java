@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Min;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +27,7 @@ public class Task {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;
+
     @Min(value = 0, message = "Age should be greater than 0")
     @Column(name = "deadline")
     private int deadline;

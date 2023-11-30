@@ -5,11 +5,13 @@ import ik.koresh.todolistsb.models.Task;
 import ik.koresh.todolistsb.services.TasksService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+@PropertySource("")
 @Controller
 @RequestMapping("/todolist")
 public class TasksController {
@@ -53,8 +55,9 @@ public class TasksController {
             return "todolist/new";
 
         tasksService.save(task);
-        return "redirect:/todolist";
+        return "redirect:/";
     }
+
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id){
@@ -62,8 +65,12 @@ public class TasksController {
         return "todolist/edit";
     }
 
+
     @PatchMapping("/edit")
-    public String edit(Model model, @ModelAttribute("task") Task task){
+    public String edit(@ModelAttribute("task") @Valid Task task,
+                       BindingResult bindingResult){
+        if (bindingResult.hasErrors())
+            return "todolist/edit";
         tasksService.save(task);
         return "redirect:/";
     }
