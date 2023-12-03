@@ -30,12 +30,6 @@ public class TasksController {
         return "todolist/index";
     }
 
-    @GetMapping("/indexTemp")
-    public String indexHeap(Model model){
-        model.addAttribute("todolist", tasksService.findAll());
-        return "todolist/indexTemp";
-    }
-
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("task", tasksService.findOne(id));
@@ -89,7 +83,7 @@ public class TasksController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id){
         tasksService.delete(id);
-        return "redirect:/todolist";
+        return "redirect:/";
     }
 
 }
