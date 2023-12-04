@@ -30,6 +30,11 @@ public class TasksService {
         return foundTask.orElse(null);
     }
 
+    public Task findOne(String description){
+        Optional<Task> foundTask = tasksRepository.findByDescription(description);
+        return foundTask.orElse(null);
+    }
+
     @Transactional
     public void save(Task task){
         tasksRepository.save(task);

@@ -3,6 +3,7 @@ package ik.koresh.todolistsb.controllers;
 
 import ik.koresh.todolistsb.models.Task;
 import ik.koresh.todolistsb.services.TasksService;
+import ik.koresh.todolistsb.util.TaskValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.*;
 public class TasksController {
 
     private final TasksService tasksService;
+    private final TaskValidator taskValidator;
 
     @Autowired
-    public TasksController(TasksService tasksService) {
+    public TasksController(TasksService tasksService, TaskValidator taskValidator) {
         this.tasksService = tasksService;
+        this.taskValidator = taskValidator;
     }
 
 
@@ -45,6 +48,8 @@ public class TasksController {
     @PostMapping()
     public String create(@ModelAttribute("task") @Valid Task task,
                          BindingResult bindingResult){
+        taskValidator.validate(task, bindingResult);
+
         if (bindingResult.hasErrors())
             return "todolist/new";
 
@@ -63,6 +68,7 @@ public class TasksController {
     @PatchMapping("/edit")
     public String edit(@ModelAttribute("task") @Valid Task task,
                        BindingResult bindingResult){
+        taskValidator.validate(task, bindingResult);
         if (bindingResult.hasErrors())
             return "todolist/edit";
         tasksService.save(task);
